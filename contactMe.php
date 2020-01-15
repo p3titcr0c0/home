@@ -6,7 +6,7 @@ $subject = $_POST['subject'];
 $mailFrom = $_POST['mail'];	
 $message = $_POST['message'];
 
-$mailTo = "admin@petitcroco.fr";
+$mailTo = "admin@monsite.fr";
 $headers = "From: ".$mailFrom;
 $txt = "Vous avez reçu un email de ".$name.":\n\n".$message;
 
