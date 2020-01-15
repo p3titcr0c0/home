@@ -1,0 +1,15 @@
+Creation du depot local:
+$ svn checkout --username=[username] https://forge.info.unicaen.fr/svn/dama
+MaJ du depot local;
+$ svn update
+Ajout/Suppresion de fichiers locaux
+$ svn add [fichier]
+$ svn del [fichier]
+MaJ du depot distant:
+$ svn ci -m "commentaire"
+GESTION DE CONFLITS:
+Verrouiller/Deverrouiller un fichier:
+$ svn lock [fichier]
+$ svn unlock [fichier]
+Consultation du statut des fichiers:
+$ svn status
