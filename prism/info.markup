@@ -1,0 +1,7 @@
+/* PrismJS 1.18.0 */
+*themes = prism-dark
+*languages = markup + css + clike + javascript + c + csharp + cpp + git + http + java + javadoc + javadoclike + jsdoc + js-extras + js-templates + json + markup-templating + perl + php + powershell + properties + python + visual-basic
+*plugins = autolinker + show-language + toolbar + download-button
+/**
+ * prism.js is a lightweight, extensible syntax highlighter
+ **/
