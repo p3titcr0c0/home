@@ -1,0 +1,20 @@
+select LigneCommandeAchat.FK_ImputationSectionBudgetaire as Nom, SectionBudgetaire.Libelle as Titre,
+                PrevisionBudgetaire.MontantRealise,
+                CASE Commande.FK_Statut
+                      WHEN 'CMDACREEE' THEN 0
+                      WHEN 'CMDASM' THEN 0
+                      ELSE SUM(LigneCommandeAchat.MontantDevise)
+                    END AS Depenses , CONCAT(DAY(SectionBudgetaire.valideDepuis), '-', MONTH(SectionBudgetaire.valideDepuis), '-',YEAR(SectionBudgetaire.valideDepuis)) As DebutValidite, CONCAT(DAY(SectionBudgetaire.ValideJusqua), '-', MONTH(SectionBudgetaire.ValideJusqua), '-',YEAR(SectionBudgetaire.ValideJusqua)) as FinValidite
+                    
+                    FROM LigneCommandeAchat
+                        JOIN CommandeAchat Commande ON Commande.Numero = LigneCommandeAchat.FK_Entete
+                        JOIN SectionBudgetaire ON LigneCommandeAchat.FK_ImputationSectionBudgetaire = SectionBudgetaire.Code
+                        JOIN (
+                            select FK_Section,
+                            Max(MontantRealise) as MontantRealise
+                            from PrevisionBudgetaire
+                            GROUP BY FK_Section)
+                                AS PrevisionBudgetaire ON PrevisionBudgetaire.FK_Section = SectionBudgetaire.Code
+                        WHERE LigneCommandeAchat.FK_ImputationSectionBudgetaire LIKE 'F%'
+        GROUP BY LigneCommandeAchat.FK_ImputationSectionBudgetaire, SectionBudgetaire.Libelle, Commande.FK_Statut,PrevisionBudgetaire.MontantRealise, SectionBudgetaire.valideDepuis, SectionBudgetaire.ValideJusqua
+        ORDER BY FinValidite
